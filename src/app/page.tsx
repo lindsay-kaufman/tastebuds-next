@@ -1,4 +1,5 @@
-import { Map } from "./../components/map";
+
+import { UserMap } from "./../components/map";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -6,7 +7,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
         <h1>Tastebuds</h1>
-        <Map />
+        <UserMap />
       </div>
     </main>
   );
