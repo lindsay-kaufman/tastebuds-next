@@ -68,6 +68,7 @@ export const Map = (props: MapProps) => {
     return map;
   };
 
+  
   useEffect(() => {
     initMap();
   }, [props.places, props.userLocation]);
