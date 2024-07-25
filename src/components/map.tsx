@@ -73,14 +73,14 @@ export const Map = (props: MapProps) => {
 
     infowindow.setContent(infowindowContent);
 
-   //const mapMarker = new AdvancedMarkerElement({ map: map });
+    //const mapMarker = new AdvancedMarkerElement({ map: map });
 
     // marker.addListener("click", () => {
     //   infowindow.open(map, mapMarker);
     // });
 
     autocomplete.addListener("place_changed", () => {
-      console.log("place changed")
+      console.log("place changed");
       infowindow.close();
 
       const place = autocomplete.getPlace();
@@ -91,10 +91,10 @@ export const Map = (props: MapProps) => {
 
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
-  
-      const location = new google.maps.LatLng(lat, lng)
-      marker.position = location
-   
+
+      const location = new google.maps.LatLng(lat, lng);
+      marker.position = location;
+
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
@@ -102,10 +102,10 @@ export const Map = (props: MapProps) => {
         map.setZoom(17);
       }
 
-     // const content = 
+      // const content =
 
       //infowindow.setContent(place.name, place.formatted_address)
-      console.log("marker", marker)
+      console.log("marker", marker);
       infowindow.open(map, marker);
     });
 
@@ -161,10 +161,14 @@ export const UserMap = () => {
   const [currentLocation, setCurrentLocation] = useState<Location>();
 
   const loadData = async () => {
-    await getPlacesByUser(1).then((res) => {
-      console.log("res:", res);
-      setPlaces(res);
-    });
+    try {
+      await getPlacesByUser(1).then((res) => {
+        console.log("res:", res);
+        setPlaces(res);
+      });
+    } catch (error) {
+      console.log("Error fetching places", error);
+    }
   };
 
   const options = {
