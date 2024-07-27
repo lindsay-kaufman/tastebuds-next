@@ -17,9 +17,9 @@ interface Location {
 
 export const Map = (props: MapProps) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const tempLocation: Location = {
-    lat: 42.3392,
-    lng: -71.0809,
+  const defaultLocation: Location = {
+    lat: 42.3541,
+    lng: -71.0701,
   };
 
   const initMap = async () => {
@@ -38,7 +38,7 @@ export const Map = (props: MapProps) => {
 
     // initiate map
     const mapOptions: google.maps.MapOptions = {
-      center: props.userLocation || null,
+      center: props.userLocation || defaultLocation,
       zoom: 17,
       mapId: "MY_NEXTJS_MAPID",
     };
@@ -48,7 +48,7 @@ export const Map = (props: MapProps) => {
     // place user location on map
     const marker = new AdvancedMarkerElement({
       map: map,
-      position: props.userLocation || tempLocation,
+      position: props.userLocation || defaultLocation,
     });
 
     // autocomplete functionality for search bar
@@ -102,7 +102,6 @@ export const Map = (props: MapProps) => {
         map.setZoom(17);
       }
 
-      // const content =
 
       //infowindow.setContent(place.name, place.formatted_address)
       console.log("marker", marker);
@@ -161,14 +160,10 @@ export const UserMap = () => {
   const [currentLocation, setCurrentLocation] = useState<Location>();
 
   const loadData = async () => {
-    try {
-      await getPlacesByUser(1).then((res) => {
-        console.log("res:", res);
-        setPlaces(res);
-      });
-    } catch (error) {
-      console.log("Error fetching places", error);
-    }
+    await getPlacesByUser(1).then((res) => {
+      console.log('res', res)
+      setPlaces(res);
+    });
   };
 
   const options = {
